@@ -1,16 +1,23 @@
 steps:
+  # Passo 1: Construir a imagem Docker
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/$PROJECT_ID/sua-imagem:$SHORT_SHA', '.']
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/infograficos:$SHORT_SHA', '.']
+
+  # Passo 2: Enviar a imagem para o Container Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/$PROJECT_ID/sua-imagem:$SHORT_SHA']
+    args: ['push', 'gcr.io/$PROJECT_ID/infograficos:$SHORT_SHA']
+
+  # Passo 3: Fazer o deploy da imagem no Cloud Run
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['run', 'deploy', 'trigger-teste',
-           '--image', 'gcr.io/$PROJECT_ID/sua-imagem:$SHORT_SHA',
+    args: ['run', 'deploy', 'teste-gcp',
+           '--image', 'gcr.io/$PROJECT_ID/infograficos:$SHORT_SHA',
            '--region', 'us-east4',
            '--platform', 'managed',
            '--allow-unauthenticated']
-logsBucket: 'gs://cloudbuildlogs2024'
-options:
-  logging: GCS_ONLY
+
+# Especificar quais imagens devem ser armazenadas após o build
 images:
-  - 'gcr.io/$PROJECT_ID/sua-imagem:$SHORT_SHA'
+  - 'gcr.io/$PROJECT_ID/infograficos:$SHORT_SHA'
+#logsBucket: 'gs://cloudbuildlogs2024'
+#options:
+#  logging: GCS_ONLY
