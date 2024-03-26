@@ -4,14 +4,13 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/sua-imagem:$SHORT_SHA']
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['run', 'deploy', 'pythonapp',
+    args: ['run', 'deploy', 'trigger-teste',
            '--image', 'gcr.io/$PROJECT_ID/sua-imagem:$SHORT_SHA',
            '--region', 'us-east4',
            '--platform', 'managed',
            '--allow-unauthenticated']
 #logsBucket: 'gs://cloudbuildlogs2024'
-options:
-  logging: GCS_ONLY
+#options:
+#  logging: GCS_ONLY
 images:
   - 'gcr.io/$PROJECT_ID/sua-imagem:$SHORT_SHA'
-  
