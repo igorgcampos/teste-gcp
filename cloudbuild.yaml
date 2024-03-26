@@ -18,6 +18,6 @@ steps:
 # Especificar quais imagens devem ser armazenadas após o build
 images:
   - 'gcr.io/$PROJECT_ID/infograficos:$SHORT_SHA'
-#logsBucket: 'gs://cloudbuildlogs2024'
-#options:
-#  logging: GCS_ONLY
+logsBucket: 'gs://cloudbuildlogs2024'
+options:
+  logging: GCS_ONLY
