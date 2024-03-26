@@ -14,3 +14,4 @@ options:
   logging: GCS_ONLY
 images:
   - 'gcr.io/$PROJECT_ID/sua-imagem:$SHORT_SHA'
+  
