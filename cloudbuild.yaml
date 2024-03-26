@@ -10,8 +10,8 @@ steps:
            '--platform', 'managed',
            '--allow-unauthenticated']
 #logsBucket: 'gs://cloudbuildlogs2024'
-options:
-  logging: GCS_ONLY
+#options:
+#  logging: GCS_ONLY
 images:
   - 'gcr.io/$PROJECT_ID/sua-imagem:$SHORT_SHA'
   
