@@ -9,7 +9,7 @@ steps:
            '--region', 'us-east4',
            '--platform', 'managed',
            '--allow-unauthenticated']
-logsBucket: 'gs://cloudbuildlogs2024'
+#logsBucket: 'gs://cloudbuildlogs2024'
 options:
   logging: GCS_ONLY
 images:
