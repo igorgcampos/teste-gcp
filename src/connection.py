@@ -51,11 +51,19 @@ def test_mysql_connection(
     except Exception as e:  # pylint: disable=W0718
         logger.exception(e)
 
+def test_mysql_connection(socket_path, user, password, database):
+    try:
+        conn = mysql.connector.connect(unix_socket=socket_path, user=user, password=password, database=database)
+        print("MySQL connection successful.")
+    except Exception as e:
+        print(f"Failed to connect to MySQL: {e}")
 
 if __name__ == "__main__":
     list_buckets()
+    instance_connection_name = os.getenv("INSTANCE_CONNECTION_NAME")
+    socket_path = f"/cloudsql/{instance_connection_name}"
     test_mysql_connection(
-        host=os.getenv("INSTANCE_CONNECTION_NAME"),
+        socket_path=socket_path,
         user=os.getenv("DB_USER"),
         password=os.getenv("DB_PASS"),
         database=os.getenv("DB_NAME"),
