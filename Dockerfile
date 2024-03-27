@@ -1,10 +1,14 @@
 FROM python:3.10.13-alpine
-
-WORKDIR ./teste
-COPY ../src ./src
-COPY ../pyproject.toml ./
-COPY ../poetry.lock ./
-COPY ../README.md ./
+#WORKDIR ./teste
+#COPY ../src ./src
+#COPY ../pyproject.toml ./
+#COPY ../poetry.lock ./
+#COPY ../README.md ./
+WORKDIR /app
+COPY ./src ./src
+COPY ./pyproject.toml ./
+COPY ./poetry.lock ./
+COPY ./README.md ./
 
 RUN pip install --upgrade pip
 RUN pip install -U pip setuptools
