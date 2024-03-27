@@ -1,5 +1,6 @@
-#options:
-#  logging: NONE
+options:
+  logging: GCS_ONLY
+  defaultLogsBucketBehavior: REGIONAL_USER_OWNED_BUCKET
 steps:
   # Passo 1: Construir a imagem Docker
   - name: 'gcr.io/cloud-builders/docker'
