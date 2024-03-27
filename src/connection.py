@@ -55,7 +55,7 @@ def test_mysql_connection(
 if __name__ == "__main__":
     list_buckets()
     test_mysql_connection(
-        host=os.getenv(""),
+        host=os.getenv("INSTANCE_CONNECTION_NAME"),
         user=os.getenv("DB_USER"),
         password=os.getenv("DB_PASS"),
         database=os.getenv("DB_NAME"),
