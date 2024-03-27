@@ -1,5 +1,6 @@
 options:
   logging: GCS_ONLY
+  logsBucket: 'gs://cloudbuildlogs2024'
 steps:
   # Passo 1: Construir a imagem Docker
   - name: 'gcr.io/cloud-builders/docker'
