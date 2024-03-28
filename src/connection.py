@@ -7,7 +7,9 @@ def get_database_url():
     db_user = os.getenv("DB_USER")
     db_pass = os.getenv("DB_PASS")
     db_name = os.getenv("DB_NAME")
-    unix_socket_path = os.getenv("INSTANCE_CONNECTION_NAME")  # Formato '/cloudsql/project:region:instance'
+    instance_connection_name = os.getenv("INSTANCE_CONNECTION_NAME")  # Identificador da instância Cloud SQL
+    unix_socket_path = f"/cloudsql/{instance_connection_name}"  # Caminho correto do Unix socket
+    #unix_socket_path = os.getenv("INSTANCE_CONNECTION_NAME")  # Formato '/cloudsql/project:region:instance'
     return f"mysql+pymysql://{db_user}:{db_pass}@/{db_name}?unix_socket={unix_socket_path}"
 
 def test_sqlalchemy_connection(database_url):
@@ -24,7 +26,7 @@ def test_sqlalchemy_connection(database_url):
             else:
                 logger.info("Nenhuma tabela encontrada.")
     except Exception as e:
-        logger.exception("Failed to connect to MySQL with SQLAlchemy:", e)
+        logger.exception("Failed to connect to MySQL with SQLAlchemy: {e}")
 
 def list_buckets():
     try:
