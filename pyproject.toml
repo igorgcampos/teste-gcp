@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "src"
+version = "0.1.0"
+description = ""
+authors = ["Giovani Liskoski Zanini <giovanilzanini@hotmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+google-cloud-storage = "^2.16.0"
+loguru = "^0.7.2"
+mysql-connector-python = "^8.3.0"
+sqlalchemy = "^1.4.22"
+pymysql = "^1.0.2"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.3.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
