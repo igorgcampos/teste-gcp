@@ -15,9 +15,11 @@ def get_database_url():
     db_user = "infograficos"
     db_pass = "infograficos!@2024"
     db_name = "infograficos"
+    public_ip = "35.230.182.174"
     instance_connection_name = "infograficos-prd:us-east4:infograficos"  # Identificador da instância Cloud SQL
-    unix_socket_path = f"/cloudsql/{instance_connection_name}"  # Caminho correto do Unix socket
-    return f"mysql+pymysql://{db_user}:{db_pass}@/{db_name}?unix_socket={unix_socket_path}"
+    #unix_socket_path = f"/cloudsql/{instance_connection_name}"  # Caminho correto do Unix socket
+    #return f"mysql+pymysql://{db_user}:{db_pass}@/{db_name}?unix_socket={unix_socket_path}"
+    return f"mysql+pymysql://{db_user}:{db_pass}@{public_ip}/{db_name}"
 
 def test_sqlalchemy_connection(database_url):
     try:
