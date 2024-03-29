@@ -4,19 +4,19 @@ from loguru import logger
 from sqlalchemy import create_engine, text
 
 def get_database_url():
-    #db_user = os.getenv("DB_USER")
-    #db_pass = os.getenv("DB_PASS")
-    #db_name = os.getenv("DB_NAME")
-    #instance_connection_name = os.getenv("INSTANCE_CONNECTION_NAME")  # Identificador da instância Cloud SQL
-    #unix_socket_path = f"/cloudsql/{instance_connection_name}"  # Caminho correto do Unix socket
-    ##unix_socket_path = os.getenv("INSTANCE_CONNECTION_NAME")  # Formato '/cloudsql/project:region:instance'
-    #return f"mysql+pymysql://{db_user}:{db_pass}@/{db_name}?unix_socket={unix_socket_path}"
-    db_user = "infograficos"
-    db_pass = "123456"
-    db_name = "infograficos"
-    instance_connection_name = "infograficos-prd:us-east4:infograficos"  # Identificador da instância Cloud SQL
+    db_user = os.getenv("DB_USER")
+    db_pass = os.getenv("DB_PASS")
+    db_name = os.getenv("DB_NAME")
+    instance_connection_name = os.getenv("INSTANCE_CONNECTION_NAME")  # Identificador da instância Cloud SQL
     unix_socket_path = f"/cloudsql/{instance_connection_name}"  # Caminho correto do Unix socket
+    ##unix_socket_path = os.getenv("INSTANCE_CONNECTION_NAME")  # Formato '/cloudsql/project:region:instance'
     return f"mysql+pymysql://{db_user}:{db_pass}@/{db_name}?unix_socket={unix_socket_path}"
+    #db_user = "infograficos"
+    #db_pass = "123456"
+    #db_name = "infograficos"
+    #instance_connection_name = "infograficos-prd:us-east4:infograficos"  # Identificador da instância Cloud SQL
+    #unix_socket_path = f"/cloudsql/{instance_connection_name}"  # Caminho correto do Unix socket
+    #return f"mysql+pymysql://{db_user}:{db_pass}@/{db_name}?unix_socket={unix_socket_path}"
     
 def test_sqlalchemy_connection(database_url):
     try:
