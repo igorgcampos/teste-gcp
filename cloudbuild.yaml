@@ -27,8 +27,10 @@ steps:
       - 'infograficos-prd:us-east4:infograficos'
       - '--vpc-connector'
       - 'cloudrun-cloudsql' # Nome do  VPC Connector
+      #- '--set-env-vars'
+      #- 'DB_USER=$$DB_USER,DB_PASS=$$DB_PASS,DB_NAME=$$DB_NAME,INSTANCE_CONNECTION_NAME=infograficos-prd:us-east4:infograficos'
       - '--set-env-vars'
-      - 'DB_USER=$$DB_USER,DB_PASS=$$DB_PASS,DB_NAME=$$DB_NAME,INSTANCE_CONNECTION_NAME=infograficos-prd:us-east4:infograficos'
+      - 'INSTANCE_CONNECTION_NAME=infograficos-prd:us-east4:infograficos'
       - '--max-retries'
       - '0'
     id: 'create-job'
@@ -54,9 +56,9 @@ images:
   
 availableSecrets:
   secretManager:
-    - versionName: projects/1073591577692/secrets/DB_USER/versions/1
+    - versionName: projects/1073591577692/secrets/DB_USER/versions/latest
       env: 'DB_USER'
-    - versionName: projects/1073591577692/secrets/DB_PASS/versions/3
+    - versionName: projects/1073591577692/secrets/DB_PASS/versions/latest
       env: 'DB_PASS'
-    - versionName: projects/1073591577692/secrets/DB_NAME/versions/1
+    - versionName: projects/1073591577692/secrets/DB_NAME/versions/latest
       env: 'DB_NAME'
