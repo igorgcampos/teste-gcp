@@ -20,8 +20,11 @@ steps:
       gcloud beta run jobs create infograficos \
       --image=gcr.io/$PROJECT_ID/sua-imagem:$SHORT_SHA \
       --region=us-east4 \
+      --set-cloudsql-instances=infograficos-prd:us-east4:infograficos \
+      --vpc-connector=cloudrun-cloudsql \
       --set-env-vars=DB_USER=$$DB_USER,DB_PASS=$$DB_PASS,DB_NAME=$$DB_NAME,INSTANCE_CONNECTION_NAME=infograficos-prd:us-east4:infograficos \
-      --max-retries=0
+      --max-retries=0 \
+      --execute-now
     secretEnv: ['DB_USER', 'DB_PASS', 'DB_NAME']
 
 images:
