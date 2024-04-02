@@ -55,9 +55,9 @@ images:
   
 availableSecrets:
   secretManager:
-    - versionName: projects/1073591577692/secrets/DB_USER/versions/latest
+    - versionName: projects/infograficos-prd/secrets/DB_USER/versions/latest
       env: 'DB_USER'
-    - versionName: projects/1073591577692/secrets/DB_PASS/versions/latest
+    - versionName: projects/infograficos-prd/secrets/DB_PASS/versions/latest
       env: 'DB_PASS'
-    - versionName: projects/1073591577692/secrets/DB_NAME/versions/latest
+    - versionName: projects/infograficos-prd/secrets/DB_NAME/versions/latest
       env: 'DB_NAME'
