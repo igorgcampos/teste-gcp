@@ -11,20 +11,18 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/sua-imagem:$SHORT_SHA']
 
-  # Passo 3: Create cloud run job using shell mode to correctly use secrets
+  # Passo 3: Create cloud run job
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'bash'
     args:
     - '-c'
     - |
-      gcloud run deploy infograficos --image gcr.io/$PROJECT_ID/sua-imagem:$SHORT_SHA \
-      --region us-east4 \
-      --set-cloudsql-instances infograficos-prd:us-east4:infograficos \
-      --vpc-connector cloudrun-cloudsql \
-      --set-env-vars DB_USER=$$DB_USER,DB_PASS=$$DB_PASS,DB_NAME=$$DB_NAME,INSTANCE_CONNECTION_NAME=infograficos-prd:us-east4:infograficos \
-      --max-retries 0
+      gcloud beta run jobs create infograficos \
+      --image=gcr.io/$PROJECT_ID/sua-imagem:$SHORT_SHA \
+      --region=us-east4 \
+      --set-env-vars=DB_USER=$$DB_USER,DB_PASS=$$DB_PASS,DB_NAME=$$DB_NAME,INSTANCE_CONNECTION_NAME=infograficos-prd:us-east4:infograficos \
+      --max-retries=0
     secretEnv: ['DB_USER', 'DB_PASS', 'DB_NAME']
-    timeout: '1200s' # Optional: Adjust the timeout as needed
 
 images:
   - 'gcr.io/$PROJECT_ID/sua-imagem:$SHORT_SHA'
