@@ -13,9 +13,7 @@ steps:
     DB_USER=$(gcloud secrets versions access latest --secret="DB_USER" --project="infograficos-prd")
     DB_PASS=$(gcloud secrets versions access latest --secret="DB_PASS" --project="infograficos-prd")
     DB_NAME=$(gcloud secrets versions access latest --secret="DB_NAME" --project="infograficos-prd")
-    echo "DB_USER=$DB_USER" >> $GITHUB_ENV
-    echo "DB_PASS=$DB_PASS" >> $GITHUB_ENV
-    echo "DB_NAME=$DB_NAME" >> $GITHUB_ENV
+    export DB_USER DB_PASS DB_NAME  # Export to environment
   id: 'setup-secrets' # Adicionado um ID para este passo
 
 # Passo 1: Build docker image
