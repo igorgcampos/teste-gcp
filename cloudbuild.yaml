@@ -14,7 +14,19 @@ steps:
       DB_NAME=$(gcloud secrets versions access latest --secret="projects/infograficos-prd/secrets/DB_NAME")
       export DB_USER DB_PASS DB_NAME  # Export to environment
     id: 'download-secrets'
-
+    
+  # Passo de Depuração: Imprimir Valores das Variáveis de Ambiente
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'bash'
+    args:
+    - '-c'
+    - |
+      echo "DB_USER is $DB_USER"
+      echo "DB_PASS is [PROTECTED]"
+      echo "DB_NAME is $DB_NAME"
+    id: 'debug-print-env'
+    waitFor: ['download-secrets']
+    
   # Passo 1: Build docker image
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/$PROJECT_ID/sua-imagem:$SHORT_SHA', '.']
