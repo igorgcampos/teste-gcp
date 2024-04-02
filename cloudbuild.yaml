@@ -4,11 +4,7 @@ options:
 
 steps:
 
-  # Passo 1: Instalar a Google Cloud CLI
-  - name: 'Install Google Cloud CLI'
-    image: 'gcr.io/cloudbuilders/google-cloud-sdk'
-
-  # Passo 2: Acessar o Secret Manager
+  # Passo 0: Acessar o Secret Manager
   - name: 'Access Secret Manager - DB_USER'
     command: ['bash', '-c', 'gcloud secrets access-secret-version --secret=DB_USER --version=1 --format=json | jq -r .value']
     env:
@@ -27,19 +23,16 @@ steps:
       - name: 'DB_NAME'
         value: '$(echo $0)'
 
-  # Passo 3: Construir a imagem Docker
-  - name: 'Build Docker Image'
-    image: 'gcr.io/cloud-builders/docker'
+  # Passo 1: Constrói a imagem Docker
+  - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/$PROJECT_ID/sua-imagem:$SHORT_SHA', '.']
-
-  # Passo 4: Enviar a imagem para o Container Registry
-  - name: 'Push Docker Image'
-    image: 'gcr.io/cloud-builders/docker'
+    
+  # Passo 2: Envia a imagem para o Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/$PROJECT_ID/sua-imagem:$SHORT_SHA']
 
-  # Passo 5: Criar o Cloud Run Job
-  - name: 'Create Cloud Run Job'
-    image: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  # Passo 3: Criar o Cloud Run Job
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     args:
       - 'beta'
@@ -47,23 +40,23 @@ steps:
       - 'jobs'
       - 'create'
       - 'infograficos' # Substitua pelo nome desejado para o seu job
-      '--image'
+      - '--image'
       - 'gcr.io/$PROJECT_ID/sua-imagem:$SHORT_SHA'
-      '--region'
+      - '--region'
       - 'us-east4'
-      '--set-cloudsql-instances'
+      - '--set-cloudsql-instances'
       - 'infograficos-prd:us-east4:infograficos'
-      '--vpc-connector'
-      - 'cloudrun-cloudsql' # Nome do VPC Connector
-      '--set-env-vars'
+      - '--vpc-connector'
+      - 'cloudrun-cloudsql' # Nome do  VPC Connector
+      - '--set-env-vars'
       - 'DB_USER=$(DB_USER),DB_PASS=$(DB_PASS),DB_NAME=$(DB_NAME),INSTANCE_CONNECTION_NAME=infograficos-prd:us-east4:infograficos'
-      '--max-retries'
+      - '--max-retries'
       - '0'
     id: 'create-job'
-
-  # Passo 6 (Opcional): Executar o Job imediatamente após a criação
-  - name: 'Execute Cloud Run Job (Optional)'
-    image: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    secretEnv: ['DB_USER', 'DB_PASS', 'DB_NAME']
+    
+  # Passo 4: Executar o Job imediatamente após a criação (Opcional)
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: 'gcloud'
     args:
       - 'beta'
@@ -71,8 +64,11 @@ steps:
       - 'jobs'
       - 'execute'
       - 'infograficos' # Deve corresponder ao nome do job criado na etapa anterior
-      '--region'
+      - '--region'
       - 'us-east4'
     id: 'execute-job'
-    waitFor: 'create-job'
-    images: 'gcr.io/$PROJECT_ID/sua-imagem:$SHORT_SHA'
+    waitFor:
+      - 'create-job'
+
+images:
+  - 'gcr.io/$PROJECT_ID/sua-imagem:$SHORT_SHA'
