@@ -38,3 +38,4 @@ availableSecrets:
       env: 'DB_PASS'
     - versionName: projects/infograficos-prd/secrets/DB_NAME/versions/latest
       env: 'DB_NAME'
+      
