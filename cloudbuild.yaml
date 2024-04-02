@@ -21,9 +21,9 @@ steps:
     args:
     - '-c'
     - |
-      echo "DB_USER is $DB_USER"
+      echo "DB_USER is $$DB_USER"
       echo "DB_PASS is [PROTECTED]"
-      echo "DB_NAME is $DB_NAME"
+      echo "DB_NAME is $$DB_NAME"
     id: 'debug-print-env'
     waitFor: ['download-secrets']
     
