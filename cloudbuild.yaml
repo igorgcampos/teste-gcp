@@ -29,7 +29,7 @@ steps:
       - '--vpc-connector'
       - 'cloudrun-cloudsql' # Nome do  VPC Connector
       - '--set-env-vars'
-      - 'DB_USER=$DB_USER,DB_PASS=$DB_PASS,DB_NAME=$DB_NAME,INSTANCE_CONNECTION_NAME=infograficos-prd:us-east4:infograficos'
+      - 'DB_USER=${DB_USER},DB_PASS=${DB_PASS},DB_NAME=${DB_NAME},INSTANCE_CONNECTION_NAME=infograficos-prd:us-east4:infograficos'
       - '--max-retries'
       - '0'
     id: 'create-job'
