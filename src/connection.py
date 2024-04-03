@@ -11,12 +11,6 @@ def get_database_url():
     unix_socket_path = f"/cloudsql/{instance_connection_name}"  # Caminho correto do Unix socket
     ##unix_socket_path = os.getenv("INSTANCE_CONNECTION_NAME")  # Formato '/cloudsql/project:region:instance'
     return f"mysql+pymysql://{db_user}:{db_pass}@/{db_name}?unix_socket={unix_socket_path}"
-    #db_user = "infograficos" << Assim funcionou. Precisa testar pra ver adicioonando no secret manager o codigo direto.
-    #db_pass = "123456" <<
-    #db_name = "infograficos" <<
-    #instance_connection_name = "infograficos-prd:us-east4:infograficos"  # Identificador da instância Cloud SQL
-    #unix_socket_path = f"/cloudsql/{instance_connection_name}"  # Caminho correto do Unix socket
-    #return f"mysql+pymysql://{db_user}:{db_pass}@/{db_name}?unix_socket={unix_socket_path}"
     
 def test_sqlalchemy_connection(database_url):
     try:
