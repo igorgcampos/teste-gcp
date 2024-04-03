@@ -24,7 +24,7 @@ def test_sqlalchemy_connection(database_url):
                 for table in tables:
                     logger.info(table[0])
             else:
-                logger.info("Nenhuma tabela encontrada.")
+                logger.info("Conexao bem-sucedida. Nenhuma tabela encontrada.")
     except Exception as e:
         logger.exception("Failed to connect to MySQL with SQLAlchemy: {e}")
 
