@@ -54,4 +54,5 @@ if __name__ == "__main__":
     list_buckets()
     database_url = get_database_url()
     test_sqlalchemy_connection(database_url)
-    upload_blob(bucket_name="infograficos", source_file_name="./content.txt", destination_blob_name="content.txt")
+    # Ajustado o caminho para referenciar o arquivo corretamente dentro do contêiner
+    upload_blob(bucket_name="infograficos", source_file_name="src/content.txt", destination_blob_name="content.txt")
